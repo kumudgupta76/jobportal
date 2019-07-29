@@ -13,7 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    <a href="jobs/create" class="btn btn-primary">Post a Job</a> 
+                    <a href="/jobs" class="btn btn-primary" style="float: right;">View Jobs</a>
                     You are logged in!
                 </div>
             </div>

@@ -15,10 +15,8 @@ class CreateAppliedJobsTable extends Migration
     {
         Schema::create('applied_jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->biginteger('uid')->unsigned();
-            $table->foreign('uid')->references('id')->on('users');
-            $table->biginteger('jid')->unsigned();
-            $table->foreign('jid')->references('id')->on('jobs');
+            $table->biginteger('user_id');
+            $table->biginteger('job_id');
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

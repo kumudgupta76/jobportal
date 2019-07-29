@@ -15,11 +15,10 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('PDF_set_info_title()');
+            $table->string('title');
             $table->string('description');
-            $table->boolean('isactive');
-            $table->biginteger('uid')->unsigned();
-            $table->foreign('uid')->references('id')->on('users');
+            $table->boolean('is_active');
+            $table->biginteger('user_id');
             $table->timestamps();
         });
     }

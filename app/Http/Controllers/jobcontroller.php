@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
+
 use Illuminate\Http\Request;
 
-class usercontroller extends Controller
+class JobController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index ()
     {
         //
+        $jobs= Job::all();
+        return view('jobs.index',compact('jobs'));
     }
 
     /**
@@ -21,9 +25,10 @@ class usercontroller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create ()
     {
         //
+        return view('jobs.create');
     }
 
     /**
@@ -32,9 +37,17 @@ class usercontroller extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store (Request $request)
     {
         //
+        $job = new Job();
+        $job->title =request('title');
+        $job->description =request('description');
+        $job->user_id  =0;
+        $job->is_active = 0;
+        $job->save();
+
+        return redirect('/jobs');
     }
 
     /**
@@ -43,9 +56,12 @@ class usercontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show ($id)
     {
         //
+        $job = Job::find($id);
+        //dd($job);
+        return view('jobs.job',['job' => $job ]);
     }
 
     /**
@@ -54,9 +70,12 @@ class usercontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit ($id)
     {
         //
+        $job=Job::find($id);
+        // return $job;
+        return view('jobs.edit',['job' => $job ]);
     }
 
     /**
@@ -66,9 +85,13 @@ class usercontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update (Request $request, $id)
     {
-        //
+        $job=Job::find($id);
+        $job->title=request('title');
+        $job->description=request('description');
+        $job->save();
+        return redirect('/jobs');
     }
 
     /**
@@ -77,8 +100,9 @@ class usercontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy ($id)
     {
-        //
+        Job::find($id)->delete();
+
     }
 }
